@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1816450991550937626}
   - component: {fileID: 1808826202795135823}
   - component: {fileID: 4442659465444560634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor-s
   m_TagString: Untagged
   m_Icon: {fileID: 0}
