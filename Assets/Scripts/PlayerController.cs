@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 
     // Player movement variables
     public float jumpForce = 6f;
-    public float moveSpeed = 5f;
+    public float movementSpeed = 5f;
     public LayerMask groundMask;
     public float groundRayCast = 1.5f;
 
@@ -30,11 +30,30 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
-            Jump();
-        }
         animator.SetBool(STATE_ON_THE_GROUND, IsTouchingTheGround());
         Debug.DrawRay(transform.position, Vector2.down * groundRayCast, Color.red);
+    }
+
+    void FixedUpdate() {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) {
+            Jump();
+        }
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
+            MoveLeft();
+        }
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
+            MoveRight();
+        }
+    }
+
+    private void MoveLeft() {
+        transform.localScale = new Vector3(1, 1, 1);
+        playerRigidbody.velocity = new Vector2(-movementSpeed, playerRigidbody.velocity.y);
+    }
+
+    private void MoveRight() {
+        transform.localScale = new Vector3(-1, 1, 1);
+        playerRigidbody.velocity = new Vector2(movementSpeed, playerRigidbody.velocity.y);
     }
 
     // Makes the player jump
