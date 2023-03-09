@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpForce = 6f;
     public float moveSpeed = 5f;
     public LayerMask groundMask;
+    public float groundRayCast = 1.5f;
 
     const string STATE_ALIVE = "isAlive";
     const string STATE_ON_THE_GROUND = "isOnTheGround";
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour {
             Jump();
         }
         animator.SetBool(STATE_ON_THE_GROUND, IsTouchingTheGround());
-        Debug.DrawRay(transform.position, Vector2.down * 1.5f, Color.red);
+        Debug.DrawRay(transform.position, Vector2.down * groundRayCast, Color.red);
     }
 
     // Makes the player jump
@@ -45,11 +46,9 @@ public class PlayerController : MonoBehaviour {
 
     // Check if the player is touching the ground
     bool IsTouchingTheGround() {
-        if (Physics2D.Raycast(this.transform.position, Vector2.down, 1.5f, groundMask)) { 
-            animator.enabled = true;
+        if (Physics2D.Raycast(this.transform.position, Vector2.down, groundRayCast, groundMask)) { 
             return true;
         } else {
-            animator.enabled = false;
             return false;
         }
     }
