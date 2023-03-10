@@ -476,12 +476,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75228c8b3484153418b7c6b3542ea536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 2
+  jumpForce: 5
   movementSpeed: 2
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   groundRayCast: 0.2
+  isOnTheGround: 1
+  isWalking: 0
+  idleVelocity: 0.5
 --- !u!1 &1697618251
 GameObject:
   m_ObjectHideFlags: 0
