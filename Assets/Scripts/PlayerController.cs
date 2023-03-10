@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     public float movementSpeed = 5f;
     public LayerMask groundMask;
     public float groundRayCast = 1.5f;
+    public bool isOnTheGround;
 
     const string STATE_ALIVE = "isAlive";
     const string STATE_ON_THE_GROUND = "isOnTheGround";
@@ -58,16 +59,18 @@ public class PlayerController : MonoBehaviour {
 
     // Makes the player jump
     void Jump() {
-        if (IsTouchingTheGround()) { 
+        if (isOnTheGround) { 
             playerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
 
     // Check if the player is touching the ground
     bool IsTouchingTheGround() {
-        if (Physics2D.Raycast(this.transform.position, Vector2.down, groundRayCast, groundMask)) { 
+        if (Physics2D.Raycast(this.transform.position, Vector2.down, groundRayCast, groundMask)) {
+            isOnTheGround = true;
             return true;
         } else {
+            isOnTheGround = false;
             return false;
         }
     }
