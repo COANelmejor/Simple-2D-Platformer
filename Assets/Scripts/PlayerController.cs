@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    
     public float jumpForce = 6f;
-    public float movementSpeed = 5f;
+    public float walkingSpeed = 2f;
+    public float runSpeedMultiplier = 2f;
+           float speedMultiplier = 1f;
+    [Range(0f,1f)]
+    public float onAirMovementDecrement = 0.5f;
     public LayerMask groundMask;
     public float groundRayCast = 1.5f;
     public bool isOnTheGround = true;
@@ -16,6 +19,7 @@ public class PlayerController : MonoBehaviour
     const string STATE_ALIVE = "isAlive";
     const string STATE_ON_THE_GROUND = "isOnTheGround";
     const string STATE_WALKING = "isWalking";
+    const string STATE_RUNNING = "isRunning";
 
     Rigidbody2D playerRigidbody;
     Animator playerAnimator;
@@ -42,16 +46,20 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (Input.GetKey(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) {
-            Debug.Log("Jump");
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            playerAnimator.SetBool(STATE_RUNNING, true);  
+            speedMultiplier = runSpeedMultiplier;
+        } else {
+            playerAnimator.SetBool(STATE_RUNNING, false);
+            speedMultiplier = 1f;
+        }
+        if (Input.GetKey(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
             Jump();
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
-            Debug.Log("left");
             MoveLeft();
         }
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
-            Debug.Log("Right");
             MoveRight();
         }
     }
@@ -74,12 +82,28 @@ public class PlayerController : MonoBehaviour
     }
     private void MoveLeft() {
         transform.localScale = new Vector3(-1, 1, 1);
-        playerRigidbody.velocity = new Vector2(-movementSpeed, playerRigidbody.velocity.y);
+        if (isOnTheGround) {
+            playerRigidbody.velocity = new Vector2(-walkingSpeed * speedMultiplier, playerRigidbody.velocity.y);
+        } else {
+            if (playerRigidbody.velocity.x > 0) {
+                playerRigidbody.AddForce(Vector2.left * onAirMovementDecrement, ForceMode2D.Impulse);
+            } else if (playerRigidbody.velocity.x == 0) {
+                playerRigidbody.velocity = new Vector2(-walkingSpeed * onAirMovementDecrement, playerRigidbody.velocity.y);
+            } 
+        }
     }
 
     private void MoveRight() {
         transform.localScale = new Vector3(1, 1, 1);
-        playerRigidbody.velocity = new Vector2(movementSpeed, playerRigidbody.velocity.y);
+        if (isOnTheGround) {
+            playerRigidbody.velocity = new Vector2(walkingSpeed * speedMultiplier, playerRigidbody.velocity.y);
+        } else {
+            if (playerRigidbody.velocity.x < 0) {
+                playerRigidbody.AddForce(Vector2.right * onAirMovementDecrement, ForceMode2D.Impulse);
+            } else if (playerRigidbody.velocity.x == 0) {
+                playerRigidbody.velocity = new Vector2(walkingSpeed * onAirMovementDecrement, playerRigidbody.velocity.y);
+            }
+        }
     }
 
     // Makes the player jump
