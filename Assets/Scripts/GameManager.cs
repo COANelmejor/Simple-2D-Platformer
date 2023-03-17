@@ -22,24 +22,26 @@ public class GameManager : MonoBehaviour {
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Return)) {  
+            StartGame();
+        }
     }
     public void StartGame() {
-
+        SetGameState(GameState.inGame);
     }
+
     public void GameOver() {
-
+        SetGameState(GameState.GameOver);
     }
-    public void BackToMenu() {
 
+    public void BackToMenu() {
+        SetGameState(GameState.Menu);
     }
 
     private void SetGameState(GameState newGameState) {

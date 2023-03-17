@@ -66,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
     // Check if the player is touching the ground
     bool IsTouchingTheGround() {
-        GameManager.sharedInstance.currentGameState = GameState.inGame;
         if (Physics2D.Raycast(this.transform.position, Vector2.down, groundRayCast, groundMask)) {
             return true;
         } else {
