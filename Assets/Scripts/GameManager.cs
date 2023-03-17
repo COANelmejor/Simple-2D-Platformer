@@ -13,6 +13,14 @@ public class GameManager : MonoBehaviour {
 
     public GameState currentGameState = GameState.Menu;
 
+    public static GameManager sharedInstance;
+
+    private void Awake() {
+        if (sharedInstance == null) {
+            sharedInstance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
