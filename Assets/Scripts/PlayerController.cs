@@ -43,6 +43,10 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetBool(STATE_ON_THE_GROUND, isOnTheGround);
         playerAnimator.SetBool(STATE_WALKING, isWalking);
         Debug.DrawRay(transform.position, Vector2.down * groundRayCast, Color.red);
+        if (Input.GetButtonDown("Jump")) {
+            Debug.Log("Jump");
+            Jump();
+        }
     }
 
     void FixedUpdate() {
@@ -52,9 +56,6 @@ public class PlayerController : MonoBehaviour
         } else {
             playerAnimator.SetBool(STATE_RUNNING, false);
             speedMultiplier = 1f;
-        }
-        if (Input.GetKey(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
-            Jump();
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
             MoveLeft();
