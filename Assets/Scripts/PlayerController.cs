@@ -33,13 +33,13 @@ public class PlayerController : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        playerAnimator.SetBool(STATE_ALIVE, true);
-        playerAnimator.SetBool(STATE_ON_THE_GROUND, true);
-        playerAnimator.SetBool(STATE_WALKING, false);
         playerStartPosition = transform.position;
     }
 
     public void StartGame() {
+        playerAnimator.SetBool(STATE_ALIVE, true);
+        playerAnimator.SetBool(STATE_ON_THE_GROUND, true);
+        playerAnimator.SetBool(STATE_WALKING, false);
         transform.transform.position = playerStartPosition;
         playerRigidbody.velocity = Vector3.zero;
         isAlive = true;
@@ -60,20 +60,26 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        // Walk
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
-            MoveLeft();
-        }
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
-            MoveRight();
-        }
-        // Run Modifier
-        if (Input.GetKey(KeyCode.LeftShift)) {
-            playerAnimator.SetBool(STATE_RUNNING, true);  
-            speedMultiplier = runSpeedMultiplier;
+        // Player cannot move if the game state is not inGame
+        if (GameManager.sharedInstance.currentGameState != GameState.inGame) {
+            playerRigidbody.Sleep();
         } else {
-            playerAnimator.SetBool(STATE_RUNNING, false);
-            speedMultiplier = 1f;
+            playerRigidbody.WakeUp();
+            // Walk
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
+                MoveLeft();
+            }
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
+                MoveRight();
+            }
+            // Run Modifier
+            if (Input.GetKey(KeyCode.LeftShift)) {
+                playerAnimator.SetBool(STATE_RUNNING, true);  
+                speedMultiplier = runSpeedMultiplier;
+            } else {
+                playerAnimator.SetBool(STATE_RUNNING, false);
+                speedMultiplier = 1f;
+            }
         }
     }
 
