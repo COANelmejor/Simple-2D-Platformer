@@ -12,9 +12,10 @@ public class PlayerController : MonoBehaviour
     public float onAirMovementDecrement = 0.5f;
     public LayerMask groundMask;
     public float groundRayCast = 1.5f;
-    public bool isOnTheGround = true;
-    public bool isWalking = false;
+    public bool  isOnTheGround = true;
+    public bool  isWalking = false;
     public float idleVelocity = 0.15f;
+           bool  isAlive = true;
 
     const string STATE_ALIVE = "isAlive";
     const string STATE_ON_THE_GROUND = "isOnTheGround";
@@ -114,5 +115,14 @@ public class PlayerController : MonoBehaviour
         if (isOnTheGround) {
             playerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
+    }
+
+    public void Die() {
+        if (isAlive) {
+            isAlive = false;
+            playerAnimator.SetBool(STATE_ALIVE, false);
+            GameManager.sharedInstance.GameOver();
+        }
+
     }
 }
