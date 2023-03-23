@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D playerRigidbody;
     Animator playerAnimator;
+    Vector3 playerStartPosition;
 
     void Awake() {
         playerRigidbody = GetComponent<Rigidbody2D>();
@@ -35,6 +36,14 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetBool(STATE_ALIVE, true);
         playerAnimator.SetBool(STATE_ON_THE_GROUND, true);
         playerAnimator.SetBool(STATE_WALKING, false);
+        playerStartPosition = transform.position;
+    }
+
+    public void StartGame() {
+        transform.transform.position = playerStartPosition;
+        playerRigidbody.velocity = Vector3.zero;
+        isAlive = true;
+        playerAnimator.SetBool(STATE_ALIVE, true);
     }
 
     // Update is called once per frame
