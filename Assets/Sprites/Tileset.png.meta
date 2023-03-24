@@ -2199,10 +2199,10 @@ TextureImporter:
       name: Tileset_125
       rect:
         serializedVersion: 2
-        x: 288
+        x: 292
         y: 67
-        width: 32
-        height: 32
+        width: 24
+        height: 23
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2220,10 +2220,10 @@ TextureImporter:
       name: Tileset_126
       rect:
         serializedVersion: 2
-        x: 320
+        x: 324
         y: 67
-        width: 32
-        height: 32
+        width: 25
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2369,7 +2369,7 @@ TextureImporter:
         serializedVersion: 2
         x: 120
         y: 37
-        width: 14
+        width: 21
         height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -2390,7 +2390,7 @@ TextureImporter:
         serializedVersion: 2
         x: 130
         y: 37
-        width: 15
+        width: 26
         height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -2976,9 +2976,9 @@ TextureImporter:
       name: Bench_3
       rect:
         serializedVersion: 2
-        x: 141
+        x: 145
         y: 37
-        width: 15
+        width: 21
         height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -2989,27 +2989,6 @@ TextureImporter:
       bones: []
       spriteID: 4e9f840b854e16a469b4f8a1246cb7bd
       internalID: -1483004399
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bench_4
-      rect:
-        serializedVersion: 2
-        x: 152
-        y: 37
-        width: 14
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0a2b14d512af94e49aea18ef52e3aa87
-      internalID: -199276358
       vertices: []
       indices: 
       edges: []
